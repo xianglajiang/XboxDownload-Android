@@ -1,25 +1,46 @@
 name: Build APK
-on: [push, workflow_dispatch]
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-dotnet@v4
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
-    - uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-    - uses: android-actions/setup-android@v2
-    - name: Install SDK
-      run: yes | sdkmanager "platforms;android-34"
-    - name: Build
+
+    - name: Setup Java
       run: |
-        dotnet restore XboxDownload.Android/XboxDownload.Android.csproj
+        sudo apt-get update
+        sudo apt-get install -y openjdk-17-jdk
+        echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v2
+
+    - name: Install Android dependencies
+      run: |
+        yes | sdkmanager --licenses > /dev/null 2>&1 || true
+        sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+    - name: Restore
+      run: dotnet restore XboxDownload.Android/XboxDownload.Android.csproj
+
+    - name: Build Release APK
+      run: |
         dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm64
+
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: apk
+        name: XboxDownload-APK
         path: XboxDownload.Android/**/bin/**/*.apk
