@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DNS 设置"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上游 DNS 服务器" />
+
+    <EditText
+        android:id="@+id/editUpstreamDns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="如: 114.114.114.114"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关于"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XboxDownload Android" />
+
+    <TextView
+        android:id="@+id/txtVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="版本: 1.0.0"
+        android:textSize="12sp"
+        android:textColor="#666666" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="将Xbox下载链接重定向到国内CDN，提升下载速度"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

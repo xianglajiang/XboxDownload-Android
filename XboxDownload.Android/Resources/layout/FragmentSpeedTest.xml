@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CDN 测速"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Import Options -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择类型: "
+            android:layout_gravity="center_vertical" />
+
+        <Spinner
+            android:id="@+id/spinnerImport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- Location Filter -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="运营商: "
+            android:layout_gravity="center_vertical" />
+
+        <Spinner
+            android:id="@+id/spinnerLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <!-- Start Test Button -->
+    <Button
+        android:id="@+id/btnStartTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="开始测速"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Status -->
+    <TextView
+        android:id="@+id/txtStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ready"
+        android:textColor="#666666"
+        android:layout_marginBottom="8dp" />
+
+    <!-- IP List -->
+    <ListView
+        android:id="@+id/listViewIps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:choiceMode="multipleChoice" />
+
+</LinearLayout>

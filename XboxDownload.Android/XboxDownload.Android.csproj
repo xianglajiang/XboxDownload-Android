@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-android34</TargetFramework>
+    <OutputType>Library</OutputType>
+    <AssemblyName>XboxDownload.Android</AssemblyName>
+    <ApplicationId>com.xboxdownload.app</ApplicationId>
+    <ApplicationVersion>1.0.0</ApplicationVersion>
+    <RuntimeIdentifiers>android-arm;android-arm64</RuntimeIdentifiers>
+    <UseAndroidX>true</UseAndroidX>
+    <NoWarn>$(NoWarn);NU1605;NU1604;NU1608</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.Core" />
+    <PackageReference Include="Xamarin.AndroidX.Fragment" />
+  </ItemGroup>
+
+</Project>
