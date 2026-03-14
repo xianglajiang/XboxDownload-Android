@@ -10,41 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
+    - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Setup Java
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y openjdk-17-jdk
-        echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> $GITHUB_ENV
+    - name: Install Java
+      run: sudo apt-get update && sudo apt-get install -y openjdk-17-jdk
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v2
+    - uses: android-actions/setup-android@v2
 
-    - name: Install Android dependencies
-      run: |
-        yes | sdkmanager --licenses > /dev/null 2>&1 || true
-        sdkmanager "platforms;android-34" "build-tools;34.0.0"
+    - name: Install SDK
+      run: yes | sdkmanager "platforms;android-34"
 
-    - name: Build Release APK
+    - name: Build
       run: |
         dotnet restore XboxDownload.Android/XboxDownload.Android.csproj
         dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm64
-        dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm
 
-    - name: Find APK files
-      run: |
-        find . -name "*.apk" -type f
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v4
       with:
-        name: XboxDownload-APK
-        path: |
-          **/*.apk
+        name: apk
+        path: XboxDownload.Android/**/bin/**/*.apk
