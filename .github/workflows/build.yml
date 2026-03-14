@@ -32,24 +32,19 @@ jobs:
         yes | sdkmanager --licenses > /dev/null 2>&1 || true
         sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
-    - name: List files
-      run: |
-        ls -la
-        ls -la XboxDownload.Android/
-
-    - name: Restore with verbose
-      run: |
-        dotnet restore XboxDownload.Android/XboxDownload.Android.csproj -v d
-      continue-on-error: true
-
     - name: Build Release APK
       run: |
-        dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm64 -v d
-      continue-on-error: true
+        dotnet restore XboxDownload.Android/XboxDownload.Android.csproj
+        dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm64
+        dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm
+
+    - name: Find APK files
+      run: |
+        find . -name "*.apk" -type f
 
     - name: Upload APK
       uses: actions/upload-artifact@v4
-      if: success()
       with:
         name: XboxDownload-APK
-        path: XboxDownload.Android/**/bin/**/*.apk
+        path: |
+          **/*.apk
