@@ -1,0 +1,25 @@
+name: Build APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+    - uses: android-actions/setup-android@v2
+    - name: Install SDK
+      run: yes | sdkmanager "platforms;android-34"
+    - name: Build
+      run: |
+        dotnet restore XboxDownload.Android/XboxDownload.Android.csproj
+        dotnet build XboxDownload.Android/XboxDownload.Android.csproj -c Release -r android-arm64
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: apk
+        path: XboxDownload.Android/**/bin/**/*.apk
